@@ -11,6 +11,12 @@
             "email": "abcdemo87@gmail.com"
         }
     ],
+    "repositories":[
+    {
+        "type": "git",
+        "url": "https://github.com/rahulk-k/yii2-sendgrid"
+    }
+],
     "require": {
         "yiisoft/yii2": "*",
         "sendgrid/sendgrid": "^7.3"

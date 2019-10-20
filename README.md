@@ -1,6 +1,6 @@
 Yii2 Sendgrid Extension
 =======================
-to send email using sendgrid
+Sendgrid Mailer for Yii 2
 
 Installation
 ------------
@@ -25,7 +25,28 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+Once the extension is installed, simply use it in your code by :
+
+To use Mailer, you should configure it in the application configuration like the following,
+```php
+'components' => [
+	...
+	'sendgrid' => [
+		'class' => 'rahul\sendgrid\Mailer',
+		'username' => 'your_user_name',
+		'password' => 'your password here',
+        'token'    => 'your token',
+		//'viewPath' => '@app/views/mail', // your view path here
+	],
+	...
+],
+```
+To send an email, you may use the following code:
 
 ```php
-<?= \rahul\sendgrid\AutoloadExample::widget(); ?>```
+Yii::$app->sendgrid->compose('contact/html', ['contactForm' => $form])
+->setFrom(['from@domain.com'=>'John Due'])
+	->setTo($form->email)
+	->setSubject($form->subject)
+	->send();
+```

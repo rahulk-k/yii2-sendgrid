@@ -15,9 +15,9 @@
 namespace rahul\sendgrid;
 
 
-use SendGrid\Exception as SendGridException;
-use SendGrid\Mail as SendGridMail;
-use SendGrid as SendGridClient;
+use Exception;
+use SendGrid\Mail\Mail;
+use SendGrid;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\mail\BaseMailer;
@@ -73,21 +73,21 @@ class Mailer extends BaseMailer
             }
             $client = null;
             if ($this->token !== null) {
-                $client = new SendGridClient($this->token, $this->options);
+                $client = new SendGrid($this->token, $this->options);
             } elseif(($this->user !== null) && ($this->password !== null)) {
-                $client = new SendGridClient($this->user, $this->password, $this->options);
+                $client = new SendGrid($this->user, $this->password, $this->options);
             }
             if ($client === null) {
                 throw new InvalidParamException('Email transport must be configured');
             }
-            $sendGridMail = new SendGridMail();
+            $sendGridMail = new Mail();
             $replyTo = $message->getReplyTo();
             if ($replyTo !== null) {
                 $sendGridMail->setReplyTo($replyTo);
             }
             $sendGridMail->setFrom($message->getFrom());
             if ($message->getFromName() !== null) {
-                $sendGridMail->setFromName($message->getFromName());
+                $sendGridMail->setFrom($message->getFrom(),$message->getFromName());
             }
             foreach($message->getTo() as $email => $name) {
                 $sendGridMail->addTo($email, $name);
@@ -112,18 +112,20 @@ class Mailer extends BaseMailer
             if ($templateId === null) {
                 $data = $message->getHtmlBody();
                 if ($data !== null) {
-                    $sendGridMail->setHtml($data);
+                   // $sendGridMail->setHtml($data);
+                    $sendGridMail->addContent('text/html',$data);
                 }
                 $data = $message->getTextBody();
                 if ($data !== null) {
-                    $sendGridMail->setText($data);
+                   // $sendGridMail->setText($data);
+                    $sendGridMail->addContent('text/plain',$data);
                 }
             } else {
                 $sendGridMail->setTemplateId($templateId);
                 // trigger html template
-                $sendGridMail->setHtml(' ');
+                $sendGridMail->addContent('text/html');
                 // trigger text template
-                $sendGridMail->setText(' ');
+                $sendGridMail->addContent('text/plain');
                 $templateModel = $message->getTemplateModel();
                 if (empty($templateModel) === false) {
                     $sendGridMail->setSubstitutions($message->getTemplateModel());
@@ -131,8 +133,8 @@ class Mailer extends BaseMailer
             }
             $result = $client->send($sendGridMail);
             /* @var \SendGrid\Response $result */
-            return $result->code == 200;
-        } catch (SendGridException $e) {
+            return $result->statusCode() == 202;
+        } catch (Exception $e) {
             throw $e;
         }
     }

@@ -35,7 +35,7 @@ To use Mailer, you should configure it in the application configuration like the
 		'class' => 'rahul\sendgrid\Mailer',
 		'username' => 'your_user_name',
 		'password' => 'your password here',
-        'token'    => 'your token',
+                'token'    => 'your token',
 		//'viewPath' => '@app/views/mail', // your view path here
 	],
 	...

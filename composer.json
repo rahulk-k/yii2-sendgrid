@@ -1,0 +1,21 @@
+{
+    "name": "rahulk-k/yii2-sendgrid",
+    "description": "to send email using sendgrid",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Rahul K",
+            "email": "abcdemo87@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "rahul\\sendgrid\\": ""
+        }
+    }
+}

@@ -3,7 +3,8 @@
     "description": "to send email using sendgrid",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
-    "license": "BSD-2-Clause",
+    "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Rahul K",

@@ -26,4 +26,5 @@
             "rahul\\sendgrid\\": ""
         }
     }
+    "minimum-stability" : "stable"
 }

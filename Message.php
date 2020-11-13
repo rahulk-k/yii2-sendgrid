@@ -134,11 +134,11 @@ class Message extends BaseMessage
     {
         $fromMail = null;
         reset($this->from);
-        list($email, $name) = each($this->from);
-        if (is_numeric($email) === true) {
-            $fromMail = $name;
+        
+        if (is_numeric(key($this->from)) === true) {
+            $fromMail = $this->from[0];
         } else {
-            $fromMail = $email;
+            $fromMail = key($this->from);
         }
         return $fromMail;
     }
@@ -150,9 +150,9 @@ class Message extends BaseMessage
     public function getFromName()
     {
         reset($this->from);
-        list($email, $name) = each($this->from);
-        if (is_numeric($email) === false) {
-            return $name;
+      
+        if (is_numeric(key($this->from)) === false) {
+            return current($this->from);
         } else {
             return null;
         }
@@ -195,11 +195,11 @@ class Message extends BaseMessage
         $replyTo = null;
         if (is_array($this->replyTo) === true) {
             reset($this->replyTo);
-            list($email, $name) = each($this->replyTo);
-            if (is_numeric($email) === true) {
-                $replyTo = $name;
+           
+            if (is_numeric(key($this->replyTo)) === true) {
+                $replyTo = $this->replyTo[0];
             } else {
-                $replyTo = $email;
+                $replyTo = key($this->replyTo);
             }
         }
         return $replyTo;

@@ -17,6 +17,7 @@
         "url": "https://github.com/rahulk-k/yii2-sendgrid"
     }
 ],
+    "minimum-stability": "stable",
     "require": {
         "yiisoft/yii2": "*",
         "sendgrid/sendgrid": "^7.3"
@@ -25,6 +26,5 @@
         "psr-4": {
             "rahul\\sendgrid\\": ""
         }
-    }
-    "minimum-stability": "stable"
+    }    
 }

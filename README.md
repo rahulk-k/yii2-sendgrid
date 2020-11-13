@@ -16,7 +16,7 @@ php composer.phar require --prefer-dist rahulk-k/yii2-sendgrid "*"
 or add
 
 ```
-"rahulk-k/yii2-sendgrid": "*"
+"rahulk-k/yii2-sendgrid": "~1.0"
 ```
 
 to the require section of your `composer.json` file.
